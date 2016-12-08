@@ -1,10 +1,16 @@
 # console_casino
-console based games of chance; a decent way to practice simple python functions
+Welcome to the slicedpy casino!
+
+This repository is for console based games of chance; a decent way to practice simple python functions and logic. It's meant to be fun above all--no actual loss can only mean gain, right?
+
+Eventually, all of the mini-games will be one grand package to play at once.
+
+
 
 TODO:
 blackjack credits need adjustment to not allow player to play or bet with balance of "0"
 
-horse races  need more horses (up to 7?); adjustment to not allow play to play or bet with balance of 0
+horse races  need more horses (up to 7?); adjustment to not allow play to play or bet with balance of "0"
 add stats board (files) to create actualy odds (properties?)
 convert to use oop
 allow for different weighted variables (like jocky and weather)
