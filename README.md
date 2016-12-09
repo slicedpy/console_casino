@@ -12,8 +12,9 @@ blackjack credits need adjustment to not allow player to play or bet with balanc
 
 horse races  need more horses (up to 7?); adjustment to not allow play to play or bet with balance of "0"
 add stats board (files) to create actualy odds (properties?)
-convert to use oop
+[x]convert to use oop --> needs improvement
 allow for different weighted variables (like jocky and weather)
+(9 Dec 2016) Get the interaction working properly
 
 
 IDEAS:
