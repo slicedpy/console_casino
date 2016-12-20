@@ -9,6 +9,7 @@ Eventually, all of the mini-games will be one grand package to play at once.
 
 TODO:
 blackjack credits need adjustment to not allow player to play or bet with balance of "0"
+blackjack symbols: http://stackoverflow.com/questions/15102222/how-to-display-special-characters-in-python-with-print
 
 horse races  need more horses (up to 7?); adjustment to not allow play to play or bet with balance of "0"
 add stats board (files) to create actualy odds (properties?)
