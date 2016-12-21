@@ -10,12 +10,20 @@ Eventually, all of the mini-games will be one grand package to play at once.
 TODO:
 blackjack credits need adjustment to not allow player to play or bet with balance of "0"
 blackjack symbols: http://stackoverflow.com/questions/15102222/how-to-display-special-characters-in-python-with-print
+Allow other features like double-down commands
+create banner
 
-horse races  need more horses (up to 7?); adjustment to not allow play to play or bet with balance of "0"
+
+console_debry
 add stats board (files) to create actualy odds (properties?)
 [x]convert to use oop --> needs improvement
 allow for different weighted variables (like jocky and weather)
-(9 Dec 2016) Get the interaction working properly
+create help menu/credit reading
+perhaps shift to using python3.x for data analysis tools for race stats
+create different race tracks (longer and shorter distances)
+add correction features (mispelled (or misspelled?) horse names)
+***UPDATE COMMENTS AND DOCUMENTATION*** future you thanks you!
+
 
 
 IDEAS:
