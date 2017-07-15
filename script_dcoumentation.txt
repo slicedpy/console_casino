@@ -1,0 +1,113 @@
+Title: Console Derby
+Date: Dec 2016
+Contributors: slicedpy (https://github.com/slicedpy)
+Purpose: Exploratory scripting to stay sharp with python in general, nothing fancy, just fun.
+-----------------------------------------------------------------------------
+
+
+Import needed packages()
+time : simulates game play
+random: simulates/adds chance
+csv: Allows the import of 'data' files--can be easily subbed for odbc
+os: Allows the manipulation of the window to fit the banners
+
+Dependencies
+race_catalog.csv - consist of the horses and horse attributes.
+race_record.csv - csv appended after the race
+
+
+Global Variables()
+Track - refers to the distance of the race (sort of like 100 = 100m)
+user_choice - refers to who the user believe will win
+user_bet - refers to the how much the user wants to wager for their choice
+user_wallet - refers to user's virtual credits (dollars); not a global variable (not sure why I did that, may change it)
+game_on - refers to whether or not the player is still playing (or if they 'can')
+
+
+Classes()
+
+racehorse - each horse has attributes associated
+
+  Not to be made - the racehorse class gets rebuild each race--that can be good and bad in some cases
+  wasted resource recreating objects BUT if the support files were to change, the rebuild would be
+  able to catch up on the fly instead of having to reload the script--something to think about
+
+  The only function besides initiating is the show_stats; pretty nifty and used in a for loop
+  later down the line. Still needs some adjustment to be a little more automation friendly
+
+
+Functions ()
+
+console_derby():
+  Basically, the answer board for the rest of the functions--allows the script to be in a continues interactive loop
+  Can simply add options and shortcuts here for the user to access (call other functions)
+
+
+create_banner(banner_file="banner.txt",whichMenu="start"):
+  Creates the welcome ASCII banner from the text file--defaulted to save a little headache if parameters are passed
+  for whatever reason. ASCII credit to http://patorjk.com
+
+
+exit_game():
+  The exact opposite of the welcome screen; breaks the go_flag loop when the player wants to quit ("cash out") or
+  runs out of money in their user_wallet
+
+
+gameClaim():
+  Similar to a dealer collecting chips; game claim functions present the winner circle and declares the user
+  a winner or a loser (including adjusting the user_wallet to reflect respectively). Have yet to figure odds
+  and what not so the winnings are currently hardcoded (at 8% the last I checked). Eventually, with more tracks
+  odds and side bets, this will be adjusted to take all of those aspects into consideration
+
+  This function allows returns a 1 to the go_flag to continue--the onle instance where that is not the case is
+  when the wallet amounts to 0 (signifying that the user can't play anymore if they wanted to.
+
+getKey(item):
+  This was a nifty little function I found on StackOverflow to handling the sorting of the leaderboard. IIRC, it
+  it allows the sort function to sort ont he first indice of a list
+
+
+load_race_catalog():
+  Loads the race_catalog.csv in read-only; returns a list of racehorse() objects to iterate through during the run_race()
+  funciton
+
+
+run_race():
+  Function to increment the distance attribute to the track value using the listed objects from the load_race_catalog function.
+  Values increment randomly based on a number between the low stride and high stride of the horse. Ideally, horses with a
+  higher stride will also have chances to have a low stride. For example, a high stride of 9 will usually come with a low stride
+  of 1 or 2. So a horse at 1/9 can produce increment of (9+7+1) against a 4/7 horse (6+5+7).
+
+  Prints out the progress of the race 1 sec at a time to keep the player updated on the progress of the race. Have yet to
+  to figure out how to clear the previous print to simply appear to be updating the distance. That' okay for now.
+
+  Returns the leaderboard in descending order to declare the winner in the gameClaim() function.
+
+
+showHorseCatalog():
+  Basically a formatting function to show the attributes of the race horses (ie Horsename, LS/HS).
+
+
+showRaceRecords():
+  A formatting function that reads and calculates from the race_record.csv--definitely can be improved using
+  data analysis tools. Would for sure be updated when migrated/upcoded to python 3.x
+
+
+validateFunds():
+  Takes user input for which horse they want to bet on (defaulted to 'Lucky Day') and how much they want to bet
+  (defaulted at $50.00). Might actually have a redudant filter for an empty wallet. Still need to code logic
+  to tell the user that the horse they chose does exist. For now, if the user wants to back a horse that doesn't
+  exist, they can just (and will) just lose). This includes misspelling the horses name (working on a spellchecker
+  in another project--custom spell checking).
+
+
+user_selection():
+  This function runs the cursor that is presented to the user before and after a race. It does have logic
+  to not allow the user to enter invalid options. Anything other than valid is returned as an 'X' which
+  runs through and repeats the selection function.
+
+
+
+Script Source: console_horserace_v4.py
+File name: script_dcoumentation.txt
+Made by: docEngine
