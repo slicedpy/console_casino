@@ -40,3 +40,12 @@ create console_craps
 create console_sportsbook
 
 might make worthwhile to create complete package of mini-games based on one 'credit-wallet'
+
+
+13-MAR-2022
+Finally recovered access to the repo. Talk about fun and games.
+
+First order of business was updating console_horserace--unsurprisingly, when it was released, it was Python2 (2.7 to be exact). Updated to Python3.
+
+Going to dig into UI options.
+https://blog.resellerclub.com/the-6-best-python-gui-frameworks-for-developers/
