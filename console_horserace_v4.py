@@ -61,13 +61,13 @@ os.system("mode con cols=100 lines=40")
 
 class racehorse(object):
 
-    def __init__(self,horseNum,horseName,lowStride,highStride,age,mf,lbs,org,trainer,distance):
+    def __init__(self,horseNum,horseName,lowStride,highStride,age,sex,lbs,org,trainer,distance):
         self.horseNum = horseNum
         self.horseName = horseName
         self.lowStride = lowStride
         self.highStride = highStride
         self.age = age
-        self.mf = mf
+        self.sex = sex
         self.lbs = lbs
         self.org = org
         self.trainer = trainer
@@ -76,14 +76,14 @@ class racehorse(object):
     def show_stats(self):
             
         listing = [str(self.horseNum),self.horseName,str(self.lowStride)+"/"+str(self.highStride),\
-                   str(self.age),str(self.mf),str(self.lbs),str(self.org),str(self.trainer)]
+                   str(self.age),str(self.sex),str(self.lbs),str(self.org),str(self.trainer)]
         listing_gaps = [12,16,7,7,7,7,7,9] 
         listing_str = ""
 
         for each,gap in zip(listing,listing_gaps):
             listing_str += each + " "*(gap-len(each)) + "| "
 
-        print listing_str
+        print(listing_str)
 
 
      
@@ -180,23 +180,23 @@ def create_banner(banner_file="banner.txt",whichMenu="start"):
     options_menu=["[S]tart Racing","[H]orse Catalog/Stats","[R]ace Records","[A]bout"]
 
     if whichMenu == "start":
-        with open(banner_file,'rb') as banner:
-            print banner.read()
+        with open(banner_file,'r') as banner:
+            print(banner.read())
             time.sleep(2)
             for each in options_menu:
-                gap = (66-len(each))/2
-                print " "*gap + each + " "*gap
+                gap = int((66-len(each))/2)
+                print(" "*gap + each + " "*gap)
                 
     if whichMenu == "continue":
-        print "SELECT AN OPTION:"
-        print "=-" * 12
+        print("SELECT AN OPTION:")
+        print("=-" * 12)
         for each in options_menu:
-            print each
-        print "\n"
+            print(each)
+        print("\n")
 
     if whichMenu == "end":
         with open(banner_file,'rb') as banner:
-            print banner.read()
+            print(banner.read())
             
 def exit_game():
     global go_flag
@@ -207,7 +207,7 @@ def exit_game():
 
 def load_race_catalog():
     stable = []
-    with open('race_catalog.csv','rb') as race_catalog:
+    with open('race_catalog.csv','r') as race_catalog:
         loaded_catalog = csv.reader(race_catalog,delimiter=',',quotechar='"')
         for entry in loaded_catalog:
             try:
@@ -226,21 +226,21 @@ def validateFunds():
     global user_choice
     global user_wallet
     
-    user_choice = raw_input("\nWho do you think is going to win?: ") or "LUCKY DAY"
-    user_bet = float(raw_input("How much do you want to bet?: ") or 50.00)
+    user_choice = input("\nWho do you think is going to win?: ") or "LUCKY DAY"
+    user_bet = float(input("How much do you want to bet?: ") or 50.00)
 
 
     if user_wallet <= 0:
-        print "Looks like you're out of funds!"
+        print("Looks like you're out of funds!")
         exit_game()
             
     while user_wallet < user_bet:
-        user_bet = float(raw_input("You can't bet more than you have--How much do you want to bet?: ") or 50.00)
+        user_bet = float(input("You can't bet more than you have--How much do you want to bet?: ") or 50.00)
         
 
     
 def user_selection():
-    option_choice = raw_input("\nSTART RACE? [S] >> ",).upper() or "S"
+    option_choice = input("\nSTART RACE? [S] >> ",).upper() or "S"
 
     if len(option_choice)>=2:
         option_choice ='X'
@@ -271,19 +271,19 @@ def run_race():
 
     validateFunds()
 
-    print "\nALL BETS ARE IN!"
-    print user_choice.upper()
-    print "$" + str(("%.2f" % user_bet)).upper() + "\n"
-    print "Start: %s" % time.ctime()
+    print("\nALL BETS ARE IN!")
+    print(user_choice.upper())
+    print("$" + str(("%.2f" % user_bet)).upper() + "\n")
+    print("Start: %s" % time.ctime())
 
     while end_race == False:
         if starter_gun == 0:
             time.sleep(1)
-            print "\nON YOUR MARK..."
+            print("\nON YOUR MARK...")
             time.sleep(1)
-            print "GET SET..."
+            print("GET SET...")
             time.sleep(1)
-            print "GO!"
+            print("GO!")
             starter_gun += 1
             
         elif starter_gun > 0:
@@ -301,11 +301,11 @@ def run_race():
                 leaderboard.append([each.horseName,each.distance])
 
             for tops in sorted(leaderboard, key=getKey,reverse=True):
-                print tops[0] + "."*(18-len(tops[0])) + str(tops[1])
+                print(tops[0] + "."*(18-len(tops[0])) + str(tops[1]))
 
-            print "\n"
+            print("\n")
             
-    print "End time: %s" % time.ctime()+ "\n"
+    print("End time: %s" % time.ctime()+ "\n")
 
     return sorted(leaderboard, key=getKey,reverse=True)
 
@@ -321,28 +321,28 @@ def gameClaim():
 
     with open('race_record.csv','a+') as race_record:
         for winner in winners_circle:
-            print winner[0] + winner[1]
+            print(winner[0] + winner[1])
             race_record.write(str(winner[0][0])+","+str(winner[1])+"\n")
 
-    print "\n"
+    print("\n")
 
     if user_choice.upper() == winners_circle[0][1]:
         user_wallet += float(user_bet*1.08)
-        print "$^$"*10
-        print "\nPLAYER WINS! WALLET: $" + str(("%.2f" % user_wallet)) +'\n'
-        print "$^$"*10 + "\n"
+        print("$^$"*10)
+        print("\nPLAYER WINS! WALLET: $" + str(("%.2f" % user_wallet)) +'\n')
+        print("$^$"*10 + "\n")
         
     else:
         user_wallet -= float(user_bet)
         
         if user_wallet <= 0:
-            print "Looks like you're out of funds!"
+            print("Looks like you're out of funds!")
             exit_game()
             return 0
         
-        print "@X@"*10
-        print "\nPLAYER LOSES! WALLET: $" + str(("%.2f" % user_wallet)) + '\n'
-        print "@X@"*10 + "\n"
+        print("@X@"*10)
+        print("\nPLAYER LOSES! WALLET: $" + str(("%.2f" % user_wallet)) + '\n')
+        print("@X@"*10 + "\n")
 
     return 1
     
@@ -391,8 +391,8 @@ def showRaceRecords():
         spacer = gap - len(each)
         head_line += str(each) + " "*spacer + "|"
 
-    print "\n" + "/"*(gap*2) + "RACE RECORDS" + "/"*(gap*2)
-    print head_line
+    print("\n" + "/"*(gap*2) + "RACE RECORDS" + "/"*(gap*2))
+    print(head_line)
 
 
     for i in race_stats:
@@ -403,7 +403,7 @@ def showRaceRecords():
             else:
                 line_made += str(cell) + " "*(gap-len(str(cell)))+ "|"
                 
-        print line_made
+        print(line_made)
 
 def showHorseCatalog():
     headers = ["Horse No.","Horse Name","L/H","Age","M/F","LBS","ORG","TRAINER"]
@@ -413,7 +413,7 @@ def showHorseCatalog():
     for each,gap in zip(headers,headers_gaps):
         header_str += each + " "*(gap-len(each)) + "| "
 
-    print header_str
+    print(header_str)
 
     for each in load_race_catalog():
         each.show_stats()
